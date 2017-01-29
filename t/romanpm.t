@@ -8,10 +8,10 @@ BEGIN
   $| = 1;
   # chdir 't' if -d 't';
   unshift @INC, '../lib'; # for running manually
-  plan tests => 1094;
+  plan tests => 1097;
   }
 
-use Math::Roman;
+use Math::Roman qw/roman/;
 
 my (@args,$try,$rc,$x,$i,$y);
 $| = 1;
@@ -42,6 +42,11 @@ close DATA;
   $try =  "\$x = Math::Roman->new(-12);";
   $rc = eval $try;
   print "# For '$try'\n" if (!ok "$rc" , "XII" );
+
+# roman('1234') should work  
+
+$x = roman('M'); ok ($x,'M');
+$x = roman('1000'); ok ($x,'M');
 
 ###############################################################################
 # check if output of bstr is again a valid Roman number
@@ -142,4 +147,6 @@ LL:NaN
 VV:NaN
 XCXL:NaN
 CXXX:130
-LXL:90:XC
+LXL:NaN
+IM:NaN
+ID:NaN
