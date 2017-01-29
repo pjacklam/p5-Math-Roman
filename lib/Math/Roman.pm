@@ -22,18 +22,15 @@
 # 2001-11-08: Don't think we need it, othe subclasses don't do it, either. Tels
 
 package Math::Roman;
-use vars qw($VERSION $AUTOLOAD);
-$VERSION = 1.05;    # Current version of this package
-require  5.005;     # requires this Perl version or later
+use vars qw($VERSION);
+$VERSION = 1.07;	# Current version of this package
+require  5.005;		# requires this Perl version or later
 
-use Exporter;
+require Exporter;
 use Math::BigInt;
 @ISA = qw(Exporter Math::BigInt);
-@EXPORT_OK = qw( as_number tokens roman error
-               );
-#@EXPORT = qw( );
+@EXPORT_OK = qw( as_number tokens roman error);
 use strict;
-my $class = "Math::Roman";
 
 use overload;	# inherit from MBI
 
@@ -51,13 +48,15 @@ my $bv;       # biggest value
 # some shortcuts for easier life
 sub roman
   {
-  # exportable version of new, also faster since it doesnt check for arabic
-  # numbers first
-  my $value = shift; $value = '' if !defined $value;
-  my $self = Math::BigInt->bzero();
-  _initialize($self,$value) if $value ne '';
-  bless $self, $class;                                  # rebless
-  return $self; 
+  # exportable version of new
+  my $c = 'Math::Roman';
+  my $value = shift; $value = 0 if !defined $value;
+  # try construct a number (if we got '1999')
+  my $self = Math::BigInt->new($value);
+  # if first failed, so check for Roman
+  _initialize($self,$value) if $self->{sign} eq 'NaN';
+  bless $self, $c;						# rebless
+  $self; 
   }
 
 sub error
@@ -66,24 +65,17 @@ sub error
   return $err;
   }
 
-#sub clone
-#  {
-#  my $self = shift;
-##  return unless ref($self);
-#  $class->new($self);
-#  }
-
 sub new
   {
   my $c = shift;
-  $c = ref($c) || $class;
+  $c = ref($c) || __PACKAGE__;
   my $value = shift; $value = 0 if !defined $value;
   # try construct a number (if we got '1999')
   my $self = Math::BigInt->new($value);
   # if first failed, so check for Roman
   _initialize($self,$value) if $self->{sign} eq 'NaN';
-  bless $self, $class;                                  # rebless
-  return $self; 
+  bless $self, $c;						# rebless
+  $self; 
   }
 
 #############################################################################
@@ -137,6 +129,7 @@ BEGIN
 	C[MD][CDM]	-1
 	X[LC][XLCDM]    -1
 	I[VX][IVXLCDM]  -1
+        LXL		-1
 	III	3
 	XXX	30
 	CCC	300
@@ -181,11 +174,12 @@ BEGIN
   # IM	999
   # XD  490
   # XM  990
-  # smaller then following (several cases are already caught by rule
-  # token0 < token1)
+  # illegal ones, smaller then following (several cases are already caught
+  # by rule: token0 < token1)
   # CDD (C < D) 
   # CDC (C = C) 
   # XCD (X < D)
+  # LXL (L = L)
   # They need to be checked separetely, the following regexps take care
   # of that:
   # C[MD][CDM]
@@ -345,7 +339,7 @@ sub as_number
   {
   my $self = shift;
 
-  return Math::BigInt->new($self->SUPER::bstr());
+  Math::BigInt->new($self->SUPER::bstr());
   }
 
 1;
@@ -542,8 +536,7 @@ according to the aforementioned rules. A zero will be represented by
 ''.  The output will only consist of valid tokens, and not contain a 
 sign.  Use C<as_number()> if you need the sign.
 
-This function always generates the shortest possible form, e.g. it will
-generate XC and not LXL.
+This function always generates the shortest possible form.
 
 =head2 B<as_number()>
 
@@ -605,16 +598,6 @@ of 12.
 
 =over 1
 
-=item Ambiguous tokens
-
-Even with the strict rules there are doubtfull cases like:
-
-	LXL == 50+40 == 90 == XC
-
-I can not see how LXL violates any of the aforementioned rules. The output
-will always favour the shorter form, but you can construct valid numbers
-from the longer input.
-
 =item Importing functions
 
 You can not import ordinary math functions like C<badd()> and write
@@ -652,7 +635,7 @@ the same terms as Perl itself.
 If you use this module in one of your projects, then please email me. I want
 to hear about how my code helps you ;)
 
-Copyright (C) MCMXCIX-MM by Tels L<http://bloodgate.com/>
+Copyright (C) MCMXCIX-MMIV by Tels L<http://bloodgate.com/>
 
 =cut
 

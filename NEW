@@ -1,5 +1,8 @@
-This lists only the changes for the current release (v1.05) over the last
+This lists only the changes for the current release (v1.06) over the last
 version, since HISTORY is now quite big:
 
-* Made a seperate package (torn out from Math::Big)
+* fixed roman() to accept arabic numbers as input
+* LXL is now invalid input
+* "you define an 'IIX' token with a value of 12" should read: "...value of 8"
+  (Thanx to "Martin H. Sluka")
 
