@@ -3,7 +3,7 @@
 use strict;
 use Test;
 
-BEGIN 
+BEGIN
   {
   $| = 1;
   # chdir 't' if -d 't';
@@ -15,7 +15,7 @@ use Math::Roman qw/roman/;
 
 my (@args,$try,$rc,$x,$i,$y);
 $| = 1;
-while (<DATA>) 
+while (<DATA>)
   {
   chop;
   @args = split(/:/,$_,99);
@@ -24,14 +24,14 @@ while (<DATA>)
   $try = "\$x = Math::Roman->new('$args[0]')";
   $try .= "->as_number(); ";
 
-  $rc = eval $try; 
+  $rc = eval $try;
 
   print "# For '$try'\n" if (!ok "$rc" , $args[1]);
- 
+
   # test Arabic => Roman
-  next if $args[1] eq 'NaN'; # dont test NaNs reverse 
+  next if $args[1] eq 'NaN'; # dont test NaNs reverse
   $try = "\$x = Math::Roman->new('$args[1]');";
-              
+
   $rc = eval $try;
   print "# For '$try'\n" if (!ok "$rc" , $args[2] || $args[0]);
 
@@ -43,7 +43,7 @@ close DATA;
   $rc = eval $try;
   print "# For '$try'\n" if (!ok "$rc" , "XII" );
 
-# roman('1234') should work  
+# roman('1234') should work
 
 $x = roman('M'); ok ($x,'M');
 $x = roman('1000'); ok ($x,'M');
