@@ -5,6 +5,10 @@ Complete version history
 ##############################################################################
 Math::Roman:
 
+2018-xx-xx 1.09 pjacklam
+
+ * Increment version number.
+
 2017-01-13 1.08 pjacklam
 
  * Change order of entries in CHANGES file (this file) to have newest entries
