@@ -1,5 +1,7 @@
 1.09 Not Released
 
+ * Add test file t/release-test-version.t.
+
  * Add test file t/release-portability.t.
 
  * Add MANIFEST.SKIP file.
