@@ -1,5 +1,7 @@
 1.09 Not Released
 
+ * Update Makefile.PL.
+
  * Add MANIFEST.SKIP file based on the template in the ExtUtils-Manifest
    distribution.
 
