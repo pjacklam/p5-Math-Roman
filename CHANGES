@@ -1,5 +1,8 @@
 1.09 Not Released
 
+ * Add MANIFEST.SKIP file based on the template in the ExtUtils-Manifest
+   distribution.
+
  * Add test file t/release-test-version.t.
 
  * Add test file t/release-portability.t.
