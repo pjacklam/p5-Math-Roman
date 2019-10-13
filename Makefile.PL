@@ -16,4 +16,14 @@ WriteMakefile
    'LIBS'               => [''], # e.g., '-lm'
    'DEFINE'             => '',   # e.g., '-DHAVE_SOMETHING'
    'INC'                => '',   # e.g., '-I/usr/include/other'
+   'META_MERGE'         => {
+       'meta-spec' => { version => 2 },
+        resources => {
+            repository => {
+                type => 'git',
+                url  => 'https://github.com/pjacklam/p5-Math-Roman.git',
+                web  => 'https://github.com/pjacklam/p5-Math-Roman',
+            },
+        },
+    },
   );
