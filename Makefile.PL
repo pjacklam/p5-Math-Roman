@@ -1,4 +1,7 @@
-#!perl
+# -*- mode: perl -*-
+
+use strict;
+use warnings;
 
 use ExtUtils::MakeMaker;
 
@@ -23,14 +26,14 @@ WriteMakefile
    # A hash of modules that are needed to run the module.
 
    'PREREQ_PM'          => {
-                            'Math::BigInt'        => 1.35,
+                            'Math::BigInt'        => 1.2,
                            },
 
    # A hash of modules that are needed to test the module but not run or build
    # it.
 
    'TEST_REQUIRES'      => {
-                            'Test'                => 0,
+                            'Test::More'          => 0.47,
                            },
 
    'LIBS'               => [''], # e.g., '-lm'
