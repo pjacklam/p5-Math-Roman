@@ -32,7 +32,7 @@ require Exporter;
 
 our ($VERSION, @ISA, @EXPORT_OK);
 
-$VERSION   = '1.09';    # current version of this package
+$VERSION   = '1.10';    # current version of this package
 @ISA       = qw(Exporter Math::BigInt);
 @EXPORT_OK = qw( as_number tokens roman error );
 
