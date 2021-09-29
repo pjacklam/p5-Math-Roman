@@ -1,4 +1,4 @@
-#!perl
+# -*- mode: perl; -*-
 
 # todo: could be faster,storing values of tokes as BigInt instead integer
 #       makes it slower (due to $k < $last)
